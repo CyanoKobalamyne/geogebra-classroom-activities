@@ -46,6 +46,14 @@ class ClassDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ClassSerializer
 
 
+class ClassDetailFromCode(generics.RetrieveUpdateDestroyAPIView):
+    """API view for a single class obtained from class code."""
+
+    queryset = Class.objects.all()
+    serializer_class = ClassSerializer
+    lookup_field = 'code'
+
+
 class StudentList(generics.ListCreateAPIView):
     """API view for all students."""
 
