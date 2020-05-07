@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'ggca_rest.apps.GgcaRestConfig',
     'ggca_teacher',
+    'ggca_student',
 ]
 
 MIDDLEWARE = [
