@@ -25,7 +25,7 @@ SECRET_KEY = ')l@u#)wxxg%-bo$$)d&(o9m-ndiz!v4m4!&_ie_q&4y@_4$-m*'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [] if DEBUG else [os.environ['HTTP_HOST']]
 
 
 # Application definition
@@ -69,6 +69,16 @@ TEMPLATES = [
         },
     },
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+    ]
+}
+
+if DEBUG:
+    REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'].append(
+        'rest_framework.renderers.BrowsableAPIRenderer')
 
 WSGI_APPLICATION = 'geogebra_classroom_activities.wsgi.application'
 
