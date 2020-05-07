@@ -1,5 +1,6 @@
 """GeoGebra Classroom Activities REST models."""
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
 
 class Activity(models.Model):
@@ -37,15 +38,15 @@ class Student(models.Model):
 class StudentScreen(models.Model):
     """One screen of an activity belonging to a student."""
 
-    class ScreenState(models.IntegerChoices):
-        EMPTY = 0
-        STARTED = 1
-        DONE = 2
+    class ScreenState(models.TextChoices):
+        EMPTY = 'E', _('Empty')
+        STARTED = 'S', _('Started')
+        DONE = 'D', _('Done')
 
     student = models.ForeignKey(
         Student, related_name='screens', on_delete=models.CASCADE)
     screen = models.ForeignKey(
         Screen, related_name='student_screens', on_delete=models.CASCADE)
     geogebra_data = models.TextField(blank=True)
-    status = models.SmallIntegerField(
+    status = models.TextField(
         choices=ScreenState.choices, default=ScreenState.EMPTY)
