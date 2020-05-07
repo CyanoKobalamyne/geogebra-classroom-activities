@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'ggca_rest.apps.GgcaRestConfig',
+    'ggca_teacher',
 ]
 
 MIDDLEWARE = [
