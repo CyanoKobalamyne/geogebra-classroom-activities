@@ -4,5 +4,5 @@ from . import views
 
 urlpatterns = [
     path('', views.join),
-    path('<int:id>/', views.activity),
+    path('<str:code>/', views.activity),
 ]

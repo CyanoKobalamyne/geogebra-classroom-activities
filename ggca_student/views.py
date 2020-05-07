@@ -7,6 +7,6 @@ def join(request):
     return render(request, 'student/join.html')
 
 
-def activity(request, id):
-    """View for the actual class activity."""
-    return render(request, 'student/activity.html', context={'id': id})
+def activity(request, code):
+    """View for a class activity."""
+    return render(request, 'student/activity.html', context={'code': code})
