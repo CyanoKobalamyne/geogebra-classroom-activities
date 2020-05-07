@@ -44,4 +44,4 @@ class StudentSerializer(serializers.ModelSerializer):
 class StudentScreenSerializer(serializers.ModelSerializer):
     class Meta:
         model = StudentScreen
-        fields = ('id', 'student', 'screen', 'geogebra_data')
+        fields = ('id', 'student', 'screen', 'geogebra_data', 'status')
