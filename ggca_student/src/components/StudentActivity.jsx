@@ -27,6 +27,8 @@ class StudentActivity extends Component {
     );
     this.handleNameChange = this.handleNameChange.bind(this);
     this.handleNameSubmit = this.handleNameSubmit.bind(this);
+    this.handleScreenSubmit = this.handleScreenSubmit.bind(this);
+    this.handleNextSubmit = this.handleNextSubmit.bind(this);
   }
 
   handleNameChange(event) {
@@ -36,6 +38,22 @@ class StudentActivity extends Component {
   handleNameSubmit(event) {
     event.preventDefault();
     this.createStudent();
+  }
+
+  handleScreenSubmit(event) {
+    var active_studentscreen = this.state.active_screen.student_screens.filter(
+      (studentscreen_id) => {
+        return this.state.student.screens.includes(studentscreen_id);
+      }
+    )[0];
+    this.patchStudentScreen(active_studentscreen, "D");
+  }
+
+  handleNextSubmit(event) {
+    if (this.state.order + 1 < this.state.screens.length) {
+      this.setState({ order: this.state.order + 1 });
+    }
+    this.updateActiveScreen();
   }
 
   componentDidMount() {
@@ -130,7 +148,7 @@ class StudentActivity extends Component {
       index++;
     }
     if (screen !== undefined) {
-      this.setState({ prompt: screen.prompt });
+      this.setState({ active_screen: screen, prompt: screen.prompt });
     }
   }
 
@@ -151,7 +169,11 @@ class StudentActivity extends Component {
           this.setState({
             screens: this.state.screens.map((screen) => {
               if (screen.student_screens.includes(studentscreen_id)) {
-                return { data: studentscreen.geogebra_data, ...screen };
+                return {
+                  this_studentscreen_id: studentscreen_id,
+                  data: studentscreen.geogebra_data,
+                  ...screen,
+                };
               } else {
                 return screen;
               }
@@ -161,7 +183,36 @@ class StudentActivity extends Component {
     });
   }
 
-  putScreenState(new_state) {}
+  patchStudentScreen(studentscreen, new_status) {
+    ggbApplet.getBase64((ggb_data) => {
+      var data = {
+        id: studentscreen,
+        geogebra_data: ggb_data,
+      };
+      if (screen.state != new_status) {
+        data.status = new_status;
+      }
+      console.log(data);
+      fetch("/api/studentscreen/" + studentscreen + "/", {
+        method: "PATCH",
+        credentials: "include",
+        cache: "no-cache",
+        mode: "same-origin",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
+        .then((response) => {
+          console.log(response);
+          return response.json();
+        })
+        .then((studentscreen) => {
+          console.log(studentscreen);
+        });
+    });
+  }
 
   render() {
     return (
@@ -183,6 +234,8 @@ class StudentActivity extends Component {
         <h1>{this.state.title}</h1>
         <p>{this.state.prompt}</p>
         <div id="ggb-element"></div>
+        <button onClick={this.handleScreenSubmit}>Submit</button>
+        <button onClick={this.handleNextSubmit}>Next</button>
       </div>
     );
   }
