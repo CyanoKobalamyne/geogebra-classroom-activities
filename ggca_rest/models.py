@@ -46,6 +46,6 @@ class StudentScreen(models.Model):
         Student, related_name='screens', on_delete=models.CASCADE)
     screen = models.ForeignKey(
         Screen, related_name='student_screens', on_delete=models.CASCADE)
-    geogebra_data = models.TextField()
+    geogebra_data = models.TextField(blank=True)
     status = models.SmallIntegerField(
         choices=ScreenState.choices, default=ScreenState.EMPTY)
