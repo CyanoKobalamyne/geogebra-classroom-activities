@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'gca_rest.apps.GcaRestConfig',
+    'ggca_rest.apps.GgcaRestConfig',
 ]
 
 MIDDLEWARE = [
