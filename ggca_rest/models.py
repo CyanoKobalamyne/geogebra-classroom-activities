@@ -37,8 +37,15 @@ class Student(models.Model):
 class StudentScreen(models.Model):
     """One screen of an activity belonging to a student."""
 
+    class ScreenState(models.IntegerChoices):
+        EMPTY = 0
+        STARTED = 1
+        DONE = 2
+
     student = models.ForeignKey(
         Student, related_name='screens', on_delete=models.CASCADE)
     screen = models.ForeignKey(
         Screen, related_name='student_screens', on_delete=models.CASCADE)
     geogebra_data = models.TextField()
+    status = models.SmallIntegerField(
+        choices=ScreenState.choices, default=ScreenState.EMPTY)
