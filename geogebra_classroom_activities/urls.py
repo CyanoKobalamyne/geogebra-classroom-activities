@@ -20,4 +20,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('ggca_rest.urls')),
     path('teacher/', include('ggca_teacher.urls')),
+    path('student/', include('ggca_student.urls')),
 ]
