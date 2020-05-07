@@ -1,3 +1,11 @@
-from django.shortcuts import render
+"""GeoGebra Classroom Activities REST views."""
+from .models import Activity
+from .serializers import ActivitySerializer
+from rest_framework import generics
 
-# Create your views here.
+
+class ActivityListCreate(generics.ListCreateAPIView):
+    """API view for all activities."""
+
+    queryset = Activity.objects.all()
+    serializer_class = ActivitySerializer
