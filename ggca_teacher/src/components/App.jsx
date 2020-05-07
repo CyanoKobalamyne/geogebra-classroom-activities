@@ -35,13 +35,15 @@ class App extends Component {
     return (
       <ul>
         {this.state.activities.map((activity) => {
-          return <li key={activity.id}>{activity.name}</li>;
+          return (
+            <li key={activity.id}>
+              <a href={activity.id}>{activity.name}</a>
+            </li>
+          );
         })}
       </ul>
     );
   }
 }
-
-export default App;
 
 render(<App {...window.props} />, window.mount_point);
