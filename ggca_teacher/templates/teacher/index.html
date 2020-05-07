@@ -6,10 +6,11 @@
   <title>GeoGebra Classroom Activities</title>
 </head>
 <body>
-<div id="app">
-    <!-- React will load here -->
-</div>
+  <div id="app"></div>
 </body>
+<script>
+    window.mount_point = document.getElementById('app');
+</script>
 {% load static %}
-<script src="{% static "teacher/main.js" %}"></script>
+<script src="{% static "components/App.jsx.js" %}"></script>
 </html>

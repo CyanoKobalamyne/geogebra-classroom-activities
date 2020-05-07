@@ -45,5 +45,4 @@ class App extends Component {
 
 export default App;
 
-const container = document.getElementById("app");
-render(<App />, container);
+render(<App {...window.props} />, window.mount_point);
