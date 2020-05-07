@@ -5,7 +5,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: [],
+      activities: [],
       loaded: false,
       placeholder: "Loading",
     };
@@ -22,10 +22,9 @@ class App extends Component {
         return response.json();
       })
       .then((data) => {
-        console.log(data);
         this.setState(() => {
           return {
-            data,
+            activities: data,
             loaded: true,
           };
         });
@@ -35,7 +34,7 @@ class App extends Component {
   render() {
     return (
       <ul>
-        {this.state.data.map((activity) => {
+        {this.state.activities.map((activity) => {
           return <li key={activity.id}>{activity.name}</li>;
         })}
       </ul>
