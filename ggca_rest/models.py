@@ -3,6 +3,17 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 
+class StudentManager(models.Manager):
+    def create(self, name, activity_class):
+        student = Student(
+            name=name, activity_class=activity_class)
+        student.save()
+        for screen in student.activity_class.activity.screens.all():
+            student_screen = StudentScreen(student=student, screen=screen)
+            student_screen.save()
+        return student
+
+
 class Activity(models.Model):
     """Reusable activity (series of screens)."""
 
@@ -33,6 +44,7 @@ class Student(models.Model):
     name = models.CharField(max_length=100)
     activity_class = models.ForeignKey(
         Class, related_name='students', on_delete=models.CASCADE)
+    objects = StudentManager()
 
 
 class StudentScreen(models.Model):

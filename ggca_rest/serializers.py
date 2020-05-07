@@ -40,6 +40,12 @@ class StudentSerializer(serializers.ModelSerializer):
         model = Student
         fields = ('id', 'name', 'activity_class', 'screens')
 
+    def create(self, validated_data):
+        return Student.objects.create(
+            name=validated_data['name'],
+            activity_class=validated_data['activity_class'],
+        )
+
 
 class StudentScreenSerializer(serializers.ModelSerializer):
     class Meta:
