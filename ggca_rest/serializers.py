@@ -4,18 +4,14 @@ from .models import Activity, Screen, Class, Student, StudentScreen
 
 
 class ActivitySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Activity
-        fields = ('id', 'name')
-
-
-class ActivityWithScreensSerializer(serializers.ModelSerializer):
+    classes = serializers.PrimaryKeyRelatedField(
+        many=True, queryset=Class.objects.all())
     screens = serializers.PrimaryKeyRelatedField(
         many=True, queryset=Screen.objects.all())
 
     class Meta:
         model = Activity
-        fields = ('id', 'name', 'screens')
+        fields = ('id', 'name', 'classes', 'screens')
 
 
 class ScreenSerializer(serializers.ModelSerializer):
