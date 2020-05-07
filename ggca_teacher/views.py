@@ -8,3 +8,7 @@ def index(request):
 
 def activity(request, id):
     return render(request, 'teacher/activity.html', context={'id': id})
+
+
+def dashboard(request, id):
+    return render(request, 'teacher/class.html', context={'id': id})
