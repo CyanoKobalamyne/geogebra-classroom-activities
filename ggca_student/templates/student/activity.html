@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GeoGebra Classroom Activities</title>
+</head>
+<body>
+  <div id="app"></div>
+</body>
+<script>
+    window.mount_point = document.getElementById('app');
+    window.props = {
+      code: '{{ code }}'
+    };
+</script>
+<script src="https://www.geogebra.org/apps/deployggb.js"></script>
+{% load static %}
+<script src="{% static "components/StudentActivity.jsx.js" %}"></script>
+</html>
