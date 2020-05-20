@@ -137,7 +137,7 @@ class StudentActivity extends Component {
         console.log(student);
         localStorage.setItem(this.props.code, student.id);
         this.setState({ student_id: student.id, student: student });
-        this.updateStudentScreens();
+        this.fetchActivity();
       });
   }
 
