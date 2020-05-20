@@ -89,7 +89,11 @@ class StudentActivity extends Component {
             return response.json();
           })
           .then((activity) => {
-            this.setState({ activity_id: activity.id, title: activity.name });
+            this.setState({
+              activity_id: activity.id,
+              title: activity.name,
+              screens: [],
+            });
             activity.screens.forEach((screen_id) => {
               fetch("/api/screen/" + screen_id)
                 .then((response) => {
